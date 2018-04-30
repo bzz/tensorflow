@@ -315,8 +315,9 @@ def _check_dense_labels_match_logits_and_reshape(
           'tf.sparse_tensor_to_dense() to turn labels into a Tensor.'
           '' % (expected_labels_dimension, expected_labels_dimension,
                 expected_labels_dimension))
-    if (labels.shape.ndims is not None and logits.shape.ndims is not None and
-        labels.shape.ndims == logits.shape.ndims - 1):
+    labels_shape = array_ops.shape(labels)
+    if (labels_shape.shape.ndims is not None and logits.shape.ndims is not None and
+        labels_shape.shape.ndims == logits.shape.ndims - 1):
       labels = array_ops.expand_dims(labels, -1)
     labels_shape = array_ops.shape(labels)
     logits_shape = array_ops.shape(logits)
